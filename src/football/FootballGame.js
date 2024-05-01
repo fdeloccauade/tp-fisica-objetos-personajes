@@ -3,87 +3,67 @@ import { FootballGoal } from './FootballGoal.js';
 import { FootballPlayer } from './FootballPlayer.js';
 import { handlePlayers, handleBall } from '../shared/InputManager.js';
 
-export function FootballGame() {
-    let player1, player2, ball;
-    let playerSize = 30;
-    let score1 = 0,
-        score2 = 0;
-    let goalWidth, goalHeight, goalTop, goalBottom;
-    let maxBallSpeed = 10;
-    let accelerationFactor = 1.05;
-    let menuActive = true;
-    let dotSize = 10;
-    let dotX, dotY;
-    let circleSize = 50;
-    let circleX, circleY;
-    let leftGoal, rightGoal;
+export function FootballGame(p) {
+    this.menuActive = true;
+    this.score1 = 0;
+    this.score2 = 0;
+    
+    this.resetGame = function () {
+        p.goalWidth = 10;
+        p.goalHeight = 100;
+        p.goalTop = p.height - p.goalHeight;
+        p.goalBottom = p.height;
+        
+        console.log(p.height, p.height - 30 / 2);
 
-    function resetGame() {
-        goalWidth = 10;
-        goalHeight = 100;
-        goalTop = height - goalHeight;
-        goalBottom = height;
-
-        player1 = new FootballPlayer(50, height - playerSize / 2, playerSize, 'blue');
-        player2 = new FootballPlayer(width - 50, height - playerSize / 2, playerSize, 'yellow');
-
-        ball = new FootballBall(width / 2, height / 2, 5, 5, 20);
-
-        leftGoal = new FootballGoal(10, height - 50, 10, 50);
-        rightGoal = new FootballGoal(width - 20, height - 50, 10, 50);
-    }
-
-    function displayScore() {
-        fill(0);
-        textSize(32);
-        text(score1, width / 4, 50); // score player 1
-        text(score2, 3 * width / 4, 50); // score player 2
-    }
-
-    function resetBall() {
-        ball.position = createVector(width / 2, height / 2);
-        ball.velocity = createVector(5, 5);
-    }
+        this.player1 = new FootballPlayer(50, p.height - 30 / 2, 30, 'blue', p);
+        this.player2 = new FootballPlayer(p.width - 50, p.height - 30 / 2, 30, 'yellow', p);
+        console.log(this.player2);
+        console.log(this.player1);
+        this.ball = new FootballBall(p.width / 2, p.height / 2, 5, 5, 20, p);
+        console.log(this.ball);
+        this.leftGoal = new FootballGoal(10, p.height - 50, 10, 50, p);
+        this.rightGoal = new FootballGoal(p.width - 20, p.height - 50, 10, 50, p);
+    };
 
     this.update = function () {
-        let time = (deltaTime / 1000) * 60;
-        if (menuActive) {
-            background(220);
-            dotX = mouseX;
-            dotY = mouseY;
-            ellipse(dotX, dotY, dotSize, dotSize);
-            ellipse(circleX, circleY, circleSize, circleSize);
-            textAlign(CENTER, CENTER);
-            textSize(32);
-            fill(255);
-            text("FOOTBALL", circleX, circleY);
-            fill(0);
+        p.background(255);
+        this.leftGoal.display(p);
+        this.rightGoal.display(p);
+        handlePlayers(this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
+        handleBall(this.ball, this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
+        this.checkGoals();
+        this.displayScore(p);
+    };
 
-            let distanceToCircle = dist(dotX, dotY, circleX, circleY);
-            if (distanceToCircle < dotSize / 2 + circleSize / 2) {
-                menuActive = false;
-                resetGame();
-            }
-        } else {
-            background(255);
-            leftGoal.display();
-            rightGoal.display();
-            handlePlayers(player1, player2, time);
-            handleBall(ball, player1, player2, time);
-            checkGoals();
-            displayScore();
+    this.displayScore = function () {
+        p.fill(0);
+        p.textSize(32);
+        p.text(this.score1, p.width / 4, 50); // score player 1
+        p.text(this.score2, 3 * p.width / 4, 50); // score player 2
+    };
+
+    this.resetBall = function () {
+        this.ball.position = p.createVector(p.width / 2, p.height / 2);
+        this.ball.velocity = p.createVector(5, 5);
+    };
+
+    this.checkGoals = function () {
+        if (this.leftGoal.checkCollision(this.ball)) {
+            this.score2++;
+            this.resetBall();
+        } else if (this.rightGoal.checkCollision(this.ball)) {
+            this.score1++;
+            this.resetBall();
         }
     };
 
-    function checkGoals() {
-        if (leftGoal.checkCollision(ball)) {
-            score2++;
-            resetBall();
-        } else if (rightGoal.checkCollision(ball)) {
-            score1++;
-            resetBall();
-        }
-    }
-
-    return this;
+    return this
 }
+
+
+
+
+
+
+

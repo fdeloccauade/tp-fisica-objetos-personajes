@@ -1,13 +1,14 @@
 export class FootballGoal {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, p) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.p = p;  // Almacenamos la instancia de p5
     }
 
     display() {
-        rect(this.x, this.y, this.width, this.height);
+        this.p.rect(this.x, this.y, this.width, this.height);
     }
 
     checkCollision(ball) {

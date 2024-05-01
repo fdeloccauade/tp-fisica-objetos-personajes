@@ -1,12 +1,13 @@
 export class FootballBall {
-    constructor(x, y, speedX, speedY, diameter) {
-        this.position = createVector(x, y);
-        this.velocity = createVector(speedX, speedY);
+    constructor(x, y, velX, velY, diameter, p) {
+        this.position = p.createVector(x, y);
+        this.velocity = p.createVector(velX, velY);
         this.diameter = diameter;
+        this.p = p;  // Guardamos la referencia a la instancia de p5
     }
 
     display() {
-        fill(0);
-        ellipse(this.position.x, this.position.y, this.diameter, this.diameter);
+        this.p.fill(255);  // Usando `p` para funciones de p5
+        this.p.ellipse(this.position.x, this.position.y, this.diameter);
     }
 }
