@@ -1,6 +1,6 @@
 import { FootballBall } from './FootballBall.js';
 import { FootballGoal } from './FootballGoal.js';
-import { FootballPlayer } from '../shared/FootballPlayer.js';
+import { FootballPlayer } from './FootballPlayer.js';
 import { handlePlayers, handleBall } from '../shared/InputManager.js';
 
 export function FootballGame() {
