@@ -52,19 +52,26 @@ export function handleBall(ball, player1, player2, time, p) {
         let diff = p5.Vector.sub(ball.position, p.createVector(player1.x, player1.y));
         diff.normalize();
         diff.mult(10);
+
+        let parabolaEffect = p.map(ball.position.y - player1.y, -player1.size / 2, player1.size / 2, -1, 1);
+        ball.velocity.y += parabolaEffect;
+
         ball.velocity = diff;
         ball.velocity.mult(p.accelerationFactor);
-        ball.position.x = player1.x + player1.size / 2 + ball.diameter / 2;
     }
 
     if (p.dist(ball.position.x, ball.position.y, player2.x, player2.y) < ball.diameter / 2 + player2.size / 2) {
         let diff = p5.Vector.sub(ball.position, p.createVector(player2.x, player2.y));
         diff.normalize();
         diff.mult(10);
+
+        let parabolaEffect = p.map(ball.position.y - player2.y, -player2.size / 2, player2.size / 2, -1, 1);
+        ball.velocity.y += parabolaEffect;
+
         ball.velocity = diff;
         ball.velocity.mult(p.accelerationFactor);
-        ball.position.x = player2.x - player2.size / 2 - ball.diameter / 2;
     }
+
     
     ball.display();
 }
