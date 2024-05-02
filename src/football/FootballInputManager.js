@@ -72,6 +72,6 @@ export function handleBall(ball, player1, player2, time, p) {
         ball.velocity.mult(p.accelerationFactor);
     }
 
-    
+
     ball.display();
 }

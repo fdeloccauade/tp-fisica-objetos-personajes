@@ -1,4 +1,4 @@
-import {Player} from "../shared/Player";
+import {Player} from "../shared/Player.js";
 
 export class IceHockeyPlayer extends Player {
     constructor(x, y, size, color,p) {
@@ -7,6 +7,6 @@ export class IceHockeyPlayer extends Player {
 
     display() {
         super.display();
-        rect(this.position.x - this.diameter / 2, this.position.y - this.diameter / 2, this.diameter, this.diameter);
+        this.p.rect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
     }
 }

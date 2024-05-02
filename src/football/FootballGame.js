@@ -3,7 +3,7 @@ import { FootballPlayer } from './FootballPlayer.js';
 import { Goal } from '../shared/Goal.js';
 import { displayScore } from '../shared/GameManager.js';
 import { checkGoals } from '../shared/GameManager.js';
-import { handlePlayers, handleBall } from '../shared/InputManager.js';
+import { handlePlayers, handleBall } from './FootballInputManager.js';
 
 export function FootballGame(p) {
     this.menuActive = true;
