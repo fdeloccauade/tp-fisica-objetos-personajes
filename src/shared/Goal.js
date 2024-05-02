@@ -4,7 +4,7 @@ export class Goal {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.p = p;  // Almacenamos la instancia de p5
+        this.p = p; 
     }
 
     display() {

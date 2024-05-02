@@ -6,9 +6,7 @@ import { checkGoals } from '../shared/GameManager.js';
 import { handlePlayers, handleBall } from './FootballInputManager.js';
 
 export function FootballGame(p) {
-    this.menuActive = true;
-    this.score1 = 0;
-    this.score2 = 0;
+    this.scores = { score1: 0, score2: 0 };
 
     this.update = function () {
         p.background(255);
@@ -16,8 +14,8 @@ export function FootballGame(p) {
         this.rightGoal.display(p);
         handlePlayers(this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
         handleBall(this.ball, this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
-        checkGoals(this.ball,this.leftGoal,this.rightGoal,this.score1,this.score2,p);
-        displayScore(this.score1,this.score2,p);
+        checkGoals(this.ball, this.leftGoal, this.rightGoal,this.scores, p);
+        displayScore(this.scores.score1, this.scores.score2,p);
     };
 
     this.resetGame = function () {
