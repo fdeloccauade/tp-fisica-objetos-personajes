@@ -51,17 +51,29 @@ export function handleBall(ball, player1, player2, time, p) {
     if (ball.position.x - ball.diameter / 2 <= 0 || ball.position.x + ball.diameter / 2 >= p.width) {
         ball.velocity.x *= -1;
     }
+    //COLISION CON JUGADORES
 
-    //Colision con los jugadores, Colision Circulo - Ciruclo
+    // verifica si la pelota ha colisionado con el jugador 1. Utiliza la función dist() , y luego verifica si esta distancia es menor que la suma de los radios de la pelota y el jugador.
     if (p.dist(ball.position.x, ball.position.y, player1.x, player1.y) < ball.diameter / 2 + player1.size / 2) {
+        // vector (diff) que apunta desde el jugador 2 a la pelota.
         let diff = p5.Vector.sub(ball.position, p.createVector(player1.x, player1.y));
+
+        // longitud = 1
         diff.normalize();
+        // longitud =10
         diff.mult(7);
 
+        // "efecto de parábola" basado en la posición vertical de la pelota en relación con el jugador 2
+        //mapeando la diferencia entre la posición vertical de la pelota y la posición vertical del jugador
         let parabolaEffect = p.map(ball.position.y - player1.y, -player1.size / 2, player1.size / 2, -1, 1);
+
+        // Esta línea añade el efecto de parábola a la componente vertical del vector diff
         diff.y += parabolaEffect;
 
+        // Esta línea establece la velocidad de la pelota igual al vector diff
         ball.velocity = diff;
+
+        //Esta línea multiplica la velocidad de la pelota por un factor de aceleración.
         ball.velocity.mult(accelerationFactor);
     }
 
@@ -70,7 +82,7 @@ export function handleBall(ball, player1, player2, time, p) {
         diff.normalize();
         diff.mult(7);
 
-        //
+        //git
         let parabolaEffect = p.map(ball.position.y - player2.y, -player2.size / 2, player2.size / 2, -1, 1);
         diff.y += parabolaEffect;
 
