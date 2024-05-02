@@ -22,7 +22,7 @@ new p5(p => {
         p.background(255);
 
         p.fill(220);
-        p.ellipse(p.mouseX, p.mouseY, p.dotSize, p.dotSize);
+        p.point(p.mouseX, p.mouseY, p.dotSize, p.dotSize);
         p.ellipse(p.circleX, p.circleY, p.circleSize, p.circleSize);
         p.rect(p.circleAirHockeyX - p.circleSize / 2, p.circleAirHockeyY - p.circleSize / 2, p.circleSize, p.circleSize);
 
