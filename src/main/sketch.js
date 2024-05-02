@@ -34,7 +34,6 @@ new p5(p => {
             }
         } else {
             footballGame.update();
-            footballGame.displayScore();
         }
     };
 });

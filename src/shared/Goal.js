@@ -1,4 +1,4 @@
-export class FootballGoal {
+export class Goal {
     constructor(x, y, width, height, p) {
         this.x = x;
         this.y = y;
