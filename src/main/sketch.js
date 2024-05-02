@@ -24,7 +24,7 @@ new p5(p => {
         p.fill(220);
         p.ellipse(p.mouseX, p.mouseY, p.dotSize, p.dotSize);
         p.ellipse(p.circleX, p.circleY, p.circleSize, p.circleSize);
-        p.ellipse(p.circleAirHockeyX, p.circleAirHockeyY, p.circleSize, p.circleSize);
+        p.rect(p.circleAirHockeyX - p.circleSize / 2, p.circleAirHockeyY - p.circleSize / 2, p.circleSize, p.circleSize);
 
         p.textAlign(p.CENTER, p.CENTER);
         p.textSize(32);
@@ -43,7 +43,9 @@ new p5(p => {
                 break;
             case 2: airHockeyGame.update();
                 break;
-                default: let distanceToFootballCircle = p.dist(p.mouseX, p.mouseY, p.circleX, p.circleY);
+                default:
+                    //Colisiones Punto circulo y Punto rectangulo
+                    let distanceToFootballCircle = p.dist(p.mouseX, p.mouseY, p.circleX, p.circleY);
                     let distanceToAirHockeyCircle = p.dist(p.mouseX, p.mouseY, p.circleAirHockeyX, p.circleAirHockeyY);
 
                     if (distanceToFootballCircle < p.dotSize / 2 + p.circleSize / 2) {

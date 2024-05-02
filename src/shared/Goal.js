@@ -11,6 +11,7 @@ export class Goal {
         this.p.rect(this.x, this.y, this.width, this.height);
     }
 
+    //Colision Circulo - Rectangulo
     checkCollision(ball) {
         if (ball.position.x + ball.diameter / 2 >= this.x &&
             ball.position.x - ball.diameter / 2 <= this.x + this.width &&

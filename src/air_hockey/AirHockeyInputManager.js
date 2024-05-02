@@ -25,7 +25,7 @@ export function handleBall(ball,player1,player2,goalTop,goalBottom,p) {
         ball.velocity.y *= -1;
     }
 
-    // Colisión con los jugadores
+    // Colisión con los jugadores, Colision Rectangulo - Rectangulo
     if (p.dist(ball.position.x, ball.position.y, player1.x, player1.y) < ball.diameter / 2 + player1.size / 2) {
         ball.velocity.x *= -1;
         ball.position.x = player1.x + player1.size / 2 + ball.diameter / 2; // Evita que la bola se quede atascada en el jugador

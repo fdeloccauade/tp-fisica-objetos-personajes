@@ -26,8 +26,12 @@ export function handlePlayers(player1, player2, time, p) {
 }
 
 export function handleBall(ball, player1, player2, time, p) {
+    let accelerationFactor = 1.05;
+
+    //MRU
     ball.position.add(p5.Vector.mult(ball.velocity, time));
 
+    //MRUV
     let gravity = p.createVector(0, 0.2 * time);
     ball.velocity.add(gravity);
 
@@ -48,28 +52,30 @@ export function handleBall(ball, player1, player2, time, p) {
         ball.velocity.x *= -1;
     }
 
+    //Colision con los jugadores, Colision Circulo - Ciruclo
     if (p.dist(ball.position.x, ball.position.y, player1.x, player1.y) < ball.diameter / 2 + player1.size / 2) {
         let diff = p5.Vector.sub(ball.position, p.createVector(player1.x, player1.y));
         diff.normalize();
-        diff.mult(10);
+        diff.mult(7);
 
         let parabolaEffect = p.map(ball.position.y - player1.y, -player1.size / 2, player1.size / 2, -1, 1);
-        ball.velocity.y += parabolaEffect;
+        diff.y += parabolaEffect;
 
         ball.velocity = diff;
-        ball.velocity.mult(p.accelerationFactor);
+        ball.velocity.mult(accelerationFactor);
     }
 
     if (p.dist(ball.position.x, ball.position.y, player2.x, player2.y) < ball.diameter / 2 + player2.size / 2) {
         let diff = p5.Vector.sub(ball.position, p.createVector(player2.x, player2.y));
         diff.normalize();
-        diff.mult(10);
+        diff.mult(7);
 
+        //
         let parabolaEffect = p.map(ball.position.y - player2.y, -player2.size / 2, player2.size / 2, -1, 1);
-        ball.velocity.y += parabolaEffect;
+        diff.y += parabolaEffect;
 
         ball.velocity = diff;
-        ball.velocity.mult(p.accelerationFactor);
+        ball.velocity.mult(accelerationFactor);
     }
 
 
