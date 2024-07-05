@@ -1,5 +1,7 @@
-export function handlePlayers(player1, player2, time, p) {
-    let moveSpeed = 5 * time;
+import { dt } from '../shared/Global.js';
+
+export function handlePlayers(player1, player2, p) {
+    let moveSpeed = 5 * dt;
 
     if (p.keyIsDown(65)) { // 'A' key
         player1.x = p.max(player1.x - moveSpeed, player1.size / 2);
@@ -25,14 +27,14 @@ export function handlePlayers(player1, player2, time, p) {
     player2.update();
 }
 
-export function handleBall(ball, player1, player2, time, p) {
+export function handleBall(ball, player1, player2, p) {
     let accelerationFactor = 1.05;
 
     //MRU
-    ball.position.add(p5.Vector.mult(ball.velocity, time));
+    ball.position.add(p5.Vector.mult(ball.velocity, dt));
 
     //MRUV
-    let gravity = p.createVector(0, 0.2 * time);
+    let gravity = p.createVector(0, 0.2 * dt);
     ball.velocity.add(gravity);
 
     let maxSpeed = 10;

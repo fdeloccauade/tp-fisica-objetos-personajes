@@ -1,6 +1,7 @@
 import { FootballGame } from '../football/FootballGame.js';
 import { AirHockeyGame } from '../air_hockey/AirHockeyGame.js';
 import { ShooterGame } from '../shooter/ShooterGame.js';
+import { updateDt } from '../shared/Global.js';
 
 new p5(p => {
     let footballGame = new FootballGame(p);
@@ -17,7 +18,6 @@ new p5(p => {
         
         p.circleAirHockeyX = (p.width / 2) - 200;
         p.circleAirHockeyY = p.height / 2;
-
         p.circleShooterX = (p.width / 2);
         p.circleShooterY = p.height / 2 - 150;
 
@@ -26,6 +26,7 @@ new p5(p => {
     };
 
     p.draw = function() {
+        updateDt((p.deltaTime / 1000) * 60);
         p.background(255);
 
         if (menuActive) {

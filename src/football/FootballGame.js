@@ -7,13 +7,12 @@ import { handlePlayers, handleBall } from './FootballInputManager.js';
 
 export function FootballGame(p) {
     this.scores = { score1: 0, score2: 0 };
-
     this.update = function () {
         p.background(255);
         this.leftGoal.display(p);
         this.rightGoal.display(p);
-        handlePlayers(this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
-        handleBall(this.ball, this.player1, this.player2, (p.deltaTime / 1000) * 60, p);
+        handlePlayers(this.player1, this.player2, p);
+        handleBall(this.ball, this.player1, this.player2, p);
         checkGoals(this.ball, this.leftGoal, this.rightGoal,this.scores, p);
         displayScore(this.scores.score1, this.scores.score2,p);
     };
