@@ -10,6 +10,7 @@ export class ShooterPlayer extends Player {
         this.maxAngularVelocity = 5;  // Velocidad máxima de rotación
         this.isAlive = true;  
         this.id = id;  
+        this.alreadyShoot = false;
     }
 
     display() {
@@ -22,6 +23,7 @@ export class ShooterPlayer extends Player {
 
     shoot() {
         if (this.bullets.length < 1 && this.isAlive) {  // Solo dispara si no hay balas activas y el jugador está vivo
+            this.alreadyShoot = true;
             const angleRadians = this.angle * (Math.PI / 180);
             const bulletX = this.x + this.radius * Math.cos(angleRadians);
             const bulletY = this.y + this.radius * Math.sin(angleRadians);
@@ -31,6 +33,7 @@ export class ShooterPlayer extends Player {
             let bullet = new Bullet(bulletX, bulletY, 10, 'red', velocityX, velocityY, this.p, this.id);
             this.bullets.push(bullet);
         }
+        
     }
 
     update() {
@@ -49,10 +52,13 @@ export class ShooterPlayer extends Player {
             this.p.fill('red');
             this.p.ellipse(bulletX, bulletY, 10, 10);
 
-            // Aumentar gradualmente la velocidad de rotación
-            if (this.angularVelocity < this.maxAngularVelocity) {
-                this.angularVelocity += 0.01;  // Ajusta este valor para cambiar la velocidad de incremento
+            if(this.alreadyShoot){
+                // Aumentar gradualmente la velocidad de rotación
+                if (this.angularVelocity < this.maxAngularVelocity) {
+                    this.angularVelocity += 0.01;  // Ajusta este valor para cambiar la velocidad de incremento
+                }
             }
+            
         }
 
         this.display();
