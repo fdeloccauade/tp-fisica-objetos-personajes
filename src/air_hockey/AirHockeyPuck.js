@@ -3,6 +3,8 @@ import {Ball} from "/src/shared/Ball.js";
 export class Puck extends Ball{
     constructor(x, y, velX, velY, diameter, p) {
         super(x, y, velX, velY, diameter,p);
+        this.mass = 10;
+        this.aceleration = 0;
     }
 
     display() {

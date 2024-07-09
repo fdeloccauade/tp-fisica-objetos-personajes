@@ -1,7 +1,7 @@
 import { FootballGame } from '../football/FootballGame.js';
 import { AirHockeyGame } from '../air_hockey/AirHockeyGame.js';
 import { ShooterGame } from '../shooter/ShooterGame.js';
-import { updateDt } from '../shared/Global.js';
+import { updateDt } from '../shared/Globals.js';
 
 new p5(p => {
     let footballGame = new FootballGame(p);

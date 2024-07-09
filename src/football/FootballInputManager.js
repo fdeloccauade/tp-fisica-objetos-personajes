@@ -1,4 +1,4 @@
-import { dt } from '../shared/Global.js';
+import { dt } from '../shared/Globals.js';
 
 export function handlePlayers(player1, player2, p) {
     let moveSpeed = 5 * dt;

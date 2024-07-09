@@ -1,5 +1,6 @@
 import {Player} from "../shared/Player.js";
 
+
 export class FootballPlayer extends Player {
     constructor(x, y, size, color,p) {
         super(x, y, size, color,p);
