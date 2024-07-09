@@ -15,7 +15,8 @@ export  function  AirHockeyGame(p){
         this.leftGoal.display(p);
         this.rightGoal.display(p);
 
-        this.impulseZone.display();
+        this.impulseZoneTop.display();
+        this.impulseZoneBottom.display();
         this.frictionZone.display();
 
         handlePlayers(this.player1, this.player2, p);
@@ -24,7 +25,8 @@ export  function  AirHockeyGame(p){
         checkGoals(this.puck,this.leftGoal,this.rightGoal, this.scores, p);
         displayScore(this.scores.score1,this.scores.score2,p);
 
-        this.detectImpulseZone(p);
+        this.detectImpulseZoneTop(p);
+        this.detectImpulseZoneBottom(p);
         this.detectFrictionZone(p);
     }
 
@@ -42,19 +44,26 @@ export  function  AirHockeyGame(p){
         this.leftGoal = new Goal(0,p.goalTop, p.goalWidth, p.goalHeight,p);
         this.rightGoal = new Goal(p.width - p.goalWidth, p.goalTop, p.goalWidth, p.goalHeight,p);
 
-        this.impulseZone = new Wall(p.width /2 , p.height /2 - 150, 10, 80, 'green', p);
-        this.frictionZone = new Wall(p.width /2 , p.height/2 + 75,10, 80, 'red', p); 
+        this.impulseZoneTop = new Wall(p.width /2 , p.height /2 - 170, 8, 70, 'green', p);
+        this.impulseZoneBottom = new Wall(p.width /2 , p.height /2 + 120, 8, 70, 'green', p);
+        this.frictionZone = new Wall(p.width /2 , p.height/3, 8, 150, 'red', p); 
     }
 
-    this.detectImpulseZone = function(p) {
-        if (this.isPuckInZone(this.puck, this.impulseZone)) {
-            this.applyImpulse(this.puck);
+    this.detectImpulseZoneTop = function(p) {
+        if (this.isPuckInZone(this.puck, this.impulseZoneTop)) {
+            this.applyImpulse(this.puck, p);
+        }
+    }
+
+    this.detectImpulseZoneBottom = function(p) {
+        if (this.isPuckInZone(this.puck, this.impulseZoneBottom)) {
+            this.applyImpulse(this.puck, p);
         }
     }
 
     this.detectFrictionZone = function(p) {
         if (this.isPuckInZone(this.puck, this.frictionZone)) {
-            this.applyFriction(this.puck);
+            this.applyFriction(this.puck, p);
         }
     }
 
@@ -64,16 +73,16 @@ export  function  AirHockeyGame(p){
             puck.position.x < zone.x + zone.width &&
             puck.position.y > zone.y &&
             puck.position.y < zone.y + zone.height
-        );
+        );                               
     }
 
-    this.applyImpulse = function (puck) {
+    this.applyImpulse = function (puck, p) {
         let impulseForce = p5.Vector.mult(puck.velocity, 1).normalize().mult(impulse * puck.mass);
         let impulseAceleration = p5.Vector.div(impulseForce, puck.mass)
         puck.velocity.add(p5.Vector.mult(impulseAceleration, dt));
     }
 
-    this.applyFriction = function (puck) {
+    this.applyFriction = function (puck, p) {
         let frictionForce = p5.Vector.mult(puck.velocity,-1).normalize().mult(friction * puck.mass);
         let frictionAceleration = p5.Vector.div(frictionForce,puck.mass)
         puck.velocity.add(p5.Vector.mult(frictionAceleration, dt));
