@@ -1,4 +1,4 @@
-import {Ball} from "/src/shared/Ball.js";
+import {Ball} from "../shared/Ball.js";
 
 export class Puck extends Ball{
     constructor(x, y, velX, velY, diameter, p) {
